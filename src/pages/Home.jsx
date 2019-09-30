@@ -3,6 +3,7 @@ import Card from '../components/Card';
 import CardList from '../containers/CardList';
 
 import { list } from '../api/charts';
+import AddChart from '../components/AddChart';
 
 export default class Home extends React.Component {
 	constructor(props) {
@@ -11,16 +12,24 @@ export default class Home extends React.Component {
 		this.state = {
 			charts: [],
 			settings: {
-				organisation: '',
+				organisation: 'ChartMuseum',
 				recentSize: 5
 			}
 		};
+
+		this.updateCharts = this.updateCharts.bind(this);
 	}
-	componentDidMount() {
-		list().then((charts) => this.setState({ charts })).catch((error) => {
+
+	updateCharts() {
+		return list().then((charts) => this.setState({ charts })).catch((error) => {
 			throw error;
 		});
 	}
+
+	componentDidMount() {
+		return this.updateCharts();
+	}
+
 	render() {
 		const { charts, settings } = this.state;
 		return (
@@ -29,16 +38,7 @@ export default class Home extends React.Component {
 					<div className="container">
 						<p id="rc-text">Recent Charts</p>
 						<div className="row">
-							<div className="col-sm-2">
-								<div className="card border-primary mb-3 border-light" id="new-chart">
-									<div className="card-body">
-										<i className="material-icons">add</i>
-									</div>
-								</div>
-								<div className="chart-footer mb-4">
-									<p>New Chart </p>
-								</div>
-							</div>
+							<AddChart func={this.updateCharts} />
 							{charts.slice(0, settings.recentSize).map((chart) => (
 								<div className="col-sm-2" key={chart.name}>
 									<Card chart={chart} />
@@ -52,33 +52,6 @@ export default class Home extends React.Component {
 				</section>
 				<section className="mb-3 mt-3 container">
 					<ul className="nav nav-pills justify-content-end">
-						<li className="nav-item dropdown">
-							<a
-								className="nav-link dropdown-toggle"
-								data-toggle="dropdown"
-								href="#"
-								role="button"
-								aria-haspopup="true"
-								aria-expanded="false"
-							>
-								{settings.organisation}
-							</a>
-							<div className="dropdown-menu">
-								<a className="dropdown-item" href="#">
-									Action
-								</a>
-								<a className="dropdown-item" href="#">
-									Another action
-								</a>
-								<a className="dropdown-item" href="#">
-									Something else here
-								</a>
-								<div className="dropdown-divider" />
-								<a className="dropdown-item" href="#">
-									Separated link
-								</a>
-							</div>
-						</li>
 						<li className="nav-item nav-item-50">
 							<a className="nav-link">
 								<i className="material-icons">list_view</i>
