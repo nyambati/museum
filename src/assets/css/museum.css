@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+.bread-crumb {
+	margin-top: 10px;
+}
+
+#new-chart i {
+	color: #18bc9c;
+	font-size: 65px;
+	margin: 20px 10px;
+}
+
+#home {
+	margin-top: 70px;
+}
+
+.card:hover {
+	cursor: pointer;
+	border-color: #18bc9c !important;
+}
+
+.container {
+	max-width: 960px !important;
+}
+
+#recent-charts {
+	padding-top: 30px;
+	background-color: #f1f3f4;
+}
+
+#recent-charts .card {
+	max-height: 230px;
+}
+
+#recent-charts .card {
+	min-height: 150px;
+}
+
+#recent-charts img {
+	min-height: 150px;
+}
+
+#rc-text {
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+#chart-list .card {
+	max-height: 250px;
+	min-height: 250px;
+}
+
+#chart-list img {
+	min-height: 201px;
+}
+.card .img {
+	width: 700px;
+	height: auto;
+}
+
+.chart-footer {
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.card-footer {
+	background-color: white;
+}
+
+.nav-item-50 {
+	max-width: 50px;
+}
