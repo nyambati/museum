@@ -34,14 +34,9 @@ body {
 
 #recent-charts .card {
 	max-height: 230px;
-}
-
-#recent-charts .card {
 	min-height: 150px;
-}
-
-#recent-charts img {
-	min-height: 150px;
+	justify-content: center;
+	padding: 10px;
 }
 
 #rc-text {

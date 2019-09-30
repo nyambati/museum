@@ -20,13 +20,11 @@ class CardList extends React.Component {
 		const { charts } = this.props;
 		const start = (this.state.activePage - 1) * this.state.itemsCountPerPage;
 		const end = start + this.state.itemsCountPerPage;
-		console.log('CHARTS', charts.length);
-		console.log(start, end);
 		return (
 			<div>
 				<div className="row">
-					{charts.slice(start, end).map((chart, index) => (
-						<div className="col-sm-3" key={index}>
+					{charts.slice(start, end).map((chart) => (
+						<div className="col-sm-3" key={chart.name}>
 							<Card footer={true} chart={chart} />
 						</div>
 					))}

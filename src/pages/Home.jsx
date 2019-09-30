@@ -39,8 +39,8 @@ export default class Home extends React.Component {
 									<p>New Chart </p>
 								</div>
 							</div>
-							{charts.slice(0, settings.recentSize).map((chart, index) => (
-								<div className="col-sm-2" key={chart.id}>
+							{charts.slice(0, settings.recentSize).map((chart) => (
+								<div className="col-sm-2" key={chart.name}>
 									<Card chart={chart} />
 									<div className="chart-footer mb-4">
 										<p>{chart.name}</p>
