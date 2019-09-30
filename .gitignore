@@ -62,3 +62,4 @@ typings/
 .cache
 dist
 node_modules
+*.tgz
