@@ -4,16 +4,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomePage from './pages/Home';
 import Header from './components/Header';
-
-const settings = {
-	organisation: ''
-};
+import LoginPage from './pages/Login';
 
 const App = (
 	<Router>
-		<Header settings={settings} />
+		<Header />
 		<Switch>
-			<Route path="/">
+			<Route exact path="/">
+				<LoginPage />
+			</Route>
+			<Route path="/home">
 				<HomePage />
 			</Route>
 		</Switch>
