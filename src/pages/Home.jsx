@@ -70,7 +70,7 @@ export default class Home extends React.Component {
 					</ul>
 				</section>
 				<section className="container" id="chart-list">
-					<CardList charts={charts} />
+					<CardList charts={charts.splice(5)} />
 				</section>
 			</div>
 		);

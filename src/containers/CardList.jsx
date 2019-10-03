@@ -29,16 +29,17 @@ class CardList extends React.Component {
 						</div>
 					))}
 				</div>
-
-				<Pagination
-					activePage={this.state.activePage}
-					itemsCountPerPage={this.state.itemsCountPerPage}
-					totalItemsCount={charts.length}
-					pageRangeDisplayed={5}
-					onChange={this.handlePageChange}
-					itemClass={'page-item bg-light'}
-					linkClass={'page-link'}
-				/>
+				{charts.length > 0 && (
+					<Pagination
+						activePage={this.state.activePage}
+						itemsCountPerPage={this.state.itemsCountPerPage}
+						totalItemsCount={charts.length}
+						pageRangeDisplayed={5}
+						onChange={this.handlePageChange}
+						itemClass={'page-item bg-light'}
+						linkClass={'page-link'}
+					/>
+				)}
 			</div>
 		);
 	}

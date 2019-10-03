@@ -1,0 +1,16 @@
+{
+	"restartable": "rs",
+	"ignore": [ ".git", "data/charts", "node_modules/**/node_modules" ],
+	"verbose": true,
+	"execMap": {
+		"js": "node --harmony"
+	},
+	"watch": [ "server/*", "bin/www" ],
+	"env": {
+		"NODE_ENV": "development",
+		"NODE_PATH": "./:server",
+		"DEBUG": "museum:*",
+		"CHART_MUSEUM_URL": "http://localhost:8080"
+	},
+	"ext": "js,json"
+}

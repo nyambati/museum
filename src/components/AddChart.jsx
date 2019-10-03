@@ -15,16 +15,12 @@ class AddChart extends React.Component {
 
 	handleUploadFile(event) {
 		const data = new FormData();
-		data.append('file', event.target.files[0]);
-		const uploadUrl = process.env.API_BASE_URL + '/upload';
-		axios
-			.post(uploadUrl, data)
-			.then((response) => {
-				this.props.func();
-			})
-			.catch((error) => {
-				throw error;
-			});
+		const files = event.target.files;
+		for (let i = 0; i < files.length; i++) {
+			data.append('files', files[i]);
+		}
+		const uploadUrl = process.env.API_BASE_URL + '/api/charts';
+		axios.post(uploadUrl, data).then((res) => this.props.func(res)).catch((error) => console.log);
 	}
 
 	render() {
@@ -35,10 +31,11 @@ class AddChart extends React.Component {
 						<input
 							hidden
 							type="file"
-							name="chart"
-							id="chart"
+							name="files"
+							id="files"
 							ref={this.input}
 							onChange={this.handleUploadFile}
+							multiple
 						/>
 						<i className="material-icons">add</i>
 					</div>
