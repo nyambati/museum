@@ -67,4 +67,18 @@ body {
 
 .nav-item-50 {
 	max-width: 50px;
+	cursor: pointer;
+}
+
+.list_view_item {
+	cursor: pointer;
+}
+.list_view_item i {
+	color: #18bc9c;
+}
+
+.list_view_action > i:hover {
+	background-color: #18bc9c;
+	color: #f1f3f4;
+	border-radius: 50%;
 }

@@ -36,8 +36,13 @@ const upload = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
-	console.log('Working');
-	res.json(req.body);
+	try {
+		const { name, version } = req.params;
+		const { data } = await axios.delete(`${CHART_MUSEUM_URL}/api/charts/${name}/${version}`);
+		return res.json(data);
+	} catch (error) {
+		return res.json({ error: error.message });
+	}
 };
 
 const findByName = async (req, res) => {

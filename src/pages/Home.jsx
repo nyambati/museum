@@ -11,13 +11,20 @@ export default class Home extends React.Component {
 
 		this.state = {
 			charts: [],
-			settings: {
-				organisation: 'ChartMuseum',
-				recentSize: 5
-			}
+			listView: false,
+			viewIcon: 'grid_on',
+			recentSize: 5
 		};
 
 		this.updateCharts = this.updateCharts.bind(this);
+		this.changeView = this.changeView.bind(this);
+	}
+
+	changeView() {
+		this.setState({
+			listView: !this.state.listView,
+			viewIcon: this.state.listView ? 'grid_on' : 'list_view'
+		});
 	}
 
 	updateCharts() {
@@ -31,7 +38,8 @@ export default class Home extends React.Component {
 	}
 
 	render() {
-		const { charts, settings } = this.state;
+		const { charts, recentSize } = this.state;
+		const listViewcharts = charts.slice(5, charts.length);
 		return (
 			<div id="home">
 				<section id="recent-charts">
@@ -39,11 +47,13 @@ export default class Home extends React.Component {
 						<p id="rc-text">Recent Charts</p>
 						<div className="row">
 							<AddChart func={this.updateCharts} />
-							{charts.slice(0, settings.recentSize).map((chart) => (
+							{charts.slice(0, recentSize).map((chart) => (
 								<div className="col-sm-2" key={chart.name}>
 									<Card chart={chart} />
 									<div className="chart-footer mb-4">
-										<p>{chart.name}</p>
+										<p>
+											{chart.name} {chart.version}
+										</p>
 									</div>
 								</div>
 							))}
@@ -53,8 +63,8 @@ export default class Home extends React.Component {
 				<section className="mb-3 mt-3 container">
 					<ul className="nav nav-pills justify-content-end">
 						<li className="nav-item nav-item-50">
-							<a className="nav-link">
-								<i className="material-icons">list_view</i>
+							<a className="nav-link" onClick={this.changeView}>
+								<i className="material-icons">{this.state.viewIcon}</i>
 							</a>
 						</li>
 						<li className="nav-item nav-item-50">
@@ -70,7 +80,7 @@ export default class Home extends React.Component {
 					</ul>
 				</section>
 				<section className="container" id="chart-list">
-					<CardList charts={charts.splice(5)} />
+					<CardList charts={listViewcharts} listView={this.state.listView} />
 				</section>
 			</div>
 		);

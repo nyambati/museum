@@ -7,7 +7,11 @@ export default function Card(props) {
 	return (
 		<div className="card border-light mb-3">
 			<img src={chart.icon || icon} alt="" srcSet="" className="card-img-top" />
-			{footer && <div className="card-footer">{chart.name}</div>}
+			{footer && (
+				<div className="card-footer">
+					{chart.name} {chart.version}
+				</div>
+			)}
 		</div>
 	);
 }

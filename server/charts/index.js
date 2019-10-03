@@ -9,8 +9,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-Router.route('/').get(charts.findAll).post(upload.array('files'), charts.upload).delete(charts.destroy);
+Router.route('/').get(charts.findAll).post(upload.array('files'), charts.upload);
 Router.route('/:name').get(charts.findByName);
-Router.route('/:name/:version').get(charts.findByVersion);
+Router.route('/:name/:version').get(charts.findByVersion).delete(charts.destroy);
 
 module.exports = Router;
