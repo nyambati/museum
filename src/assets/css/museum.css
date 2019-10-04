@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+.bread-crumb {
+	margin-top: 10px;
+}
+
+#new-chart i {
+	color: #18bc9c;
+	font-size: 65px;
+}
+
+#home {
+	margin-top: 70px;
+}
+
+.card:hover {
+	cursor: pointer;
+	border-color: #18bc9c !important;
+}
+
+.container {
+	max-width: 960px !important;
+}
+
+#recent-charts {
+	padding-top: 30px;
+	background-color: #f1f3f4;
+}
+
+#recent-charts .card {
+	max-height: 230px;
+	min-height: 150px;
+	justify-content: center;
+	padding: 10px;
+}
+
+#rc-text {
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+#chart-list .card {
+	max-height: 250px;
+	min-height: 250px;
+}
+
+#chart-list img {
+	min-height: 201px;
+}
+.card .img {
+	width: 700px;
+	height: auto;
+}
+
+.chart-footer {
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.card-footer {
+	background-color: white;
+}
+
+.nav-item-50 {
+	max-width: 50px;
+	cursor: pointer;
+}
+
+.list_view_item {
+	cursor: pointer;
+}
+.list_view_item i {
+	color: #18bc9c;
+}
+
+.list_view_action > i:hover {
+	background-color: #18bc9c;
+	color: #f1f3f4;
+	border-radius: 50%;
+}
+
+.form-signin {
+	width: 100%;
+	max-width: 420px;
+	padding: 15px;
+	margin: 200px auto;
+}
+
+.form-label-group {
+	position: relative;
+	margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+	height: 3.125rem;
+	padding: .75rem;
+}
+
+.form-label-group > label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	margin-bottom: 0; /* Override default `<label>` margin */
+	line-height: 1.5;
+	color: #495057;
+	pointer-events: none;
+	cursor: text; /* Match the input under the label */
+	border: 1px solid transparent;
+	border-radius: .25rem;
+	transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+	color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+	color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+	color: transparent;
+}
+
+.form-label-group input::placeholder {
+	color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+	padding-top: 1.25rem;
+	padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+	padding-top: .25rem;
+	padding-bottom: .25rem;
+	font-size: 12px;
+	color: #777;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+	.form-label-group > label {
+		display: none;
+	}
+	.form-label-group input::-ms-input-placeholder {
+		color: #777;
+	}
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.form-label-group > label {
+		display: none;
+	}
+	.form-label-group input:-ms-input-placeholder {
+		color: #777;
+	}
+}
