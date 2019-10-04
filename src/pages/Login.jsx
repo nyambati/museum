@@ -1,8 +1,9 @@
 import React from 'react';
+import { login } from '../api/charts';
 
 export default class Login extends React.Component {
 	state = {
-		username: '',
+		email: '',
 		password: ''
 	};
 
@@ -12,7 +13,15 @@ export default class Login extends React.Component {
 
 	onSubmitHandler = (event) => {
 		event.preventDefault();
-		location.replace('/home');
+		const { email, password } = this.state;
+		console.log(email, password);
+		login(email, password)
+			.then((user) => {
+				console.log(user);
+				localStorage.setItem('_access_token', user.token);
+				location.replace('/home');
+			})
+			.catch(console.log);
 	};
 
 	handleChange = (e) => {
@@ -36,13 +45,13 @@ export default class Login extends React.Component {
 					<div className="form-label-group">
 						<input
 							type="email"
-							name="username"
+							name="email"
 							id="inputEmail"
 							className="form-control"
 							placeholder="Email address"
 							required
 							autoFocus
-							value={this.state.username}
+							value={this.state.email}
 							onChange={this.handleChange}
 						/>
 						<label htmlFor="inputEmail">Email address</label>
