@@ -19,6 +19,6 @@ const Route = use('Route');
 Route.group(() => {
 	Route.post('/auth/register', 'AuthController.register');
 	Route.post('/auth/login', 'AuthController.login');
-	Route.get('/auth/login', 'AuthController.logout');
-	Route.resource('charts', 'ChartController').apiOnly();
+	Route.get('/auth/logout', 'AuthController.logout');
+	Route.resource('charts', 'ChartController').apiOnly().middleware('auth');
 }).prefix('/api');

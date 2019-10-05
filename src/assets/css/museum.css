@@ -17,7 +17,7 @@ body {
 	margin-top: 70px;
 }
 
-.card:hover {
+#home .card:hover {
 	cursor: pointer;
 	border-color: #18bc9c !important;
 }
@@ -170,3 +170,11 @@ body {
 		color: #777;
 	}
 }
+
+#chart_view {
+	margin-top: 90px !important;
+}
+
+/* .chart_content {
+	border: solid 1px #18bc9c;
+} */

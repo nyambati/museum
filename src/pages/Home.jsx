@@ -6,35 +6,49 @@ import { list } from '../api/charts';
 import AddChart from '../components/AddChart';
 
 export default class Home extends React.Component {
+	state = {
+		charts: [],
+		listView: false,
+		viewIcon: 'grid_on',
+		recentSize: 5
+	};
+
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			charts: [],
-			listView: false,
-			viewIcon: 'grid_on',
-			recentSize: 5
-		};
-
-		this.updateCharts = this.updateCharts.bind(this);
-		this.changeView = this.changeView.bind(this);
 	}
 
-	changeView() {
+	changeView = () => {
 		this.setState({
 			listView: !this.state.listView,
 			viewIcon: this.state.listView ? 'grid_on' : 'list_view'
 		});
-	}
+	};
 
-	updateCharts() {
+	updateCharts = () => {
 		return list().then((charts) => this.setState({ charts })).catch((error) => {
 			throw error;
 		});
-	}
+	};
 
 	componentDidMount() {
 		return this.updateCharts();
+	}
+
+	renderAlertMessage() {
+		return (
+			<section>
+				<div class="alert alert-dismissible alert-danger container mb-3 mt-3">
+					<button type="button" class="close" data-dismiss="alert">
+						&times;
+					</button>
+					<strong>Oh snap!</strong>{' '}
+					<a href="#" class="alert-link">
+						Change a few things up
+					</a>{' '}
+					and try submitting again.
+				</div>
+			</section>
+		);
 	}
 
 	render() {
@@ -60,6 +74,7 @@ export default class Home extends React.Component {
 						</div>
 					</div>
 				</section>
+
 				<section className="mb-3 mt-3 container">
 					<ul className="nav nav-pills justify-content-end">
 						<li className="nav-item nav-item-50">

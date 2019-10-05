@@ -1,5 +1,5 @@
 import React from 'react';
-import { login } from '../api/charts';
+import { login, token } from '../api/charts';
 
 export default class Login extends React.Component {
 	state = {
@@ -17,8 +17,7 @@ export default class Login extends React.Component {
 		console.log(email, password);
 		login(email, password)
 			.then((user) => {
-				console.log(user);
-				localStorage.setItem('_access_token', user.token);
+				token(user.token);
 				location.replace('/home');
 			})
 			.catch(console.log);

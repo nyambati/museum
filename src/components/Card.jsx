@@ -5,7 +5,7 @@ export default function Card(props) {
 	const chart = props.chart || {};
 	const footer = props.footer;
 	return (
-		<div className="card border-light mb-3">
+		<div className="card border-light mb-3" onClick={onClickHandler}>
 			<img src={chart.icon || icon} alt="" srcSet="" className="card-img-top" />
 			{footer && (
 				<div className="card-footer">
@@ -14,4 +14,8 @@ export default function Card(props) {
 			)}
 		</div>
 	);
+}
+
+function onClickHandler(event) {
+	location.replace('/view');
 }
