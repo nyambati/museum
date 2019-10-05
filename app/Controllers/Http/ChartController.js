@@ -40,7 +40,7 @@ class ChartController {
 		shell.exec(`rm -rf ${uploadDir}`);
 
 		if (errors.length) {
-			return response.status(500).json({ message: `Failed to upload (${errors.join(',')})` });
+			return response.json({ message: `Failed to upload (${errors.join(',')})` });
 		}
 
 		return response.json({
