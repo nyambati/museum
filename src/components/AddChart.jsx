@@ -2,27 +2,27 @@ import React from 'react';
 import axios from 'axios';
 
 class AddChart extends React.Component {
+	state = {
+		charts: []
+	};
 	constructor(props) {
 		super(props);
 		this.input = React.createRef();
-		this.trigger = this.trigger.bind(this);
-		this.handleUploadFile = this.handleUploadFile.bind(this);
 	}
 
-	trigger(event) {
+	trigger = (event) => {
 		this.input.current.click();
-	}
+	};
 
-	handleUploadFile(event) {
+	onChangeHandler = (e) => {
 		const data = new FormData();
-		const files = event.target.files;
+		const files = e.target.files;
 		for (let i = 0; i < files.length; i++) {
 			data.append('charts', files[i]);
 		}
 		const uploadUrl = process.env.API_BASE_URL + '/api/charts';
 		axios.post(uploadUrl, data).then((res) => this.props.func(res)).catch((error) => console.log);
-	}
-
+	};
 	render() {
 		return (
 			<div className="col-sm-2" onClick={this.trigger}>
@@ -31,10 +31,10 @@ class AddChart extends React.Component {
 						<input
 							hidden
 							type="file"
-							name="files"
-							id="files"
+							name="chart"
+							id="chart"
 							ref={this.input}
-							onChange={this.handleUploadFile}
+							onChange={this.onChangeHandler}
 							multiple
 						/>
 						<i className="material-icons">add</i>
