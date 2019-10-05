@@ -10,6 +10,16 @@ export function token(token) {
 	}
 	return localStorage.setItem('_access_token', token);
 }
+export async function logout() {
+	try {
+		const { data } = await axios.get('api/auth/logout');
+		localStorage.removeItem('_access_token');
+		return data;
+	} catch (error) {
+		console.log(error.message);
+		throw error;
+	}
+}
 export async function login(email, password) {
 	if (!email && !password) return;
 	try {

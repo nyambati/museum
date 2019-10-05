@@ -1,11 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import icon from '../assets/default-icon.jpeg';
 
-export default function Card(props) {
-	const chart = props.chart || {};
-	const footer = props.footer;
+export default withRouter(({ footer, chart, history }) => {
 	return (
-		<div className="card border-light mb-3" onClick={onClickHandler}>
+		<div className="card border-light mb-3" onClick={() => history.push('/view')}>
 			<img src={chart.icon || icon} alt="" srcSet="" className="card-img-top" />
 			{footer && (
 				<div className="card-footer">
@@ -14,8 +13,4 @@ export default function Card(props) {
 			)}
 		</div>
 	);
-}
-
-function onClickHandler(event) {
-	location.replace('/view');
-}
+});

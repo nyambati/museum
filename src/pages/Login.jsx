@@ -14,7 +14,6 @@ export default class Login extends React.Component {
 	onSubmitHandler = (event) => {
 		event.preventDefault();
 		const { email, password } = this.state;
-		console.log(email, password);
 		login(email, password)
 			.then((user) => {
 				token(user.token);
@@ -28,6 +27,7 @@ export default class Login extends React.Component {
 	};
 
 	render() {
+		console.log(this.props);
 		return (
 			<div id="home">
 				<form className="form-signin" onSubmit={this.onSubmitHandler}>
@@ -36,8 +36,8 @@ export default class Login extends React.Component {
 							className="mb-4"
 							src="https://avatars1.githubusercontent.com/u/30879152?s=400&v=4"
 							alt=""
-							width="72"
-							height="72"
+							width="100"
+							height="100"
 						/>
 					</div>
 

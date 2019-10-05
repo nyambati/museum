@@ -5,7 +5,7 @@ export default class VewChart extends React.Component {
 		return (
 			<div id="chart_view">
 				<div className="container">
-					<div className="card border-secondary mb-3">
+					<div className="card  mb-3">
 						<div className="card-body">
 							<h4 className="card-title">Secondary card title</h4>
 							<p className="card-text">
@@ -16,7 +16,7 @@ export default class VewChart extends React.Component {
 					</div>
 					<div className="row">
 						<div className="col-sm-8">
-							<div className="card border-secondary mb-3">
+							<div className="card  mb-3">
 								<div className="card-header">Header</div>
 								<div className="card-body">
 									<h4 className="card-title">Secondary card title</h4>

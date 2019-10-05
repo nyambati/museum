@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { token } from '../api/charts';
-
+import { Link } from 'react-router-dom';
 export default (props) => {
 	const auth = token();
 	return (
@@ -9,9 +9,9 @@ export default (props) => {
 			{!auth && <Redirect to="/" />}
 			<i className="material-icons md-48">view_headline</i>
 			<div className="container">
-				<a className="navbar-brand" href="/home">
+				<Link to="/home" className="navbar-brand">
 					ChartMuseum
-				</a>
+				</Link>
 			</div>
 		</nav>
 	);
