@@ -20,8 +20,7 @@ class AddChart extends React.Component {
 		for (let i = 0; i < files.length; i++) {
 			data.append('charts', files[i]);
 		}
-		const uploadUrl = process.env.API_BASE_URL + '/api/charts';
-		axios.post(uploadUrl, data).then((res) => this.props.func(res)).catch((error) => console.log);
+		this.props.upload(data);
 	};
 	render() {
 		return (

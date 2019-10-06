@@ -2,10 +2,11 @@ import React from 'react';
 import Card from '../components/Card';
 import CardList from '../containers/CardList';
 
-import { list } from '../api/charts';
+import { connect } from 'react-redux';
+import { list } from '../store/charts';
 import AddChart from '../components/AddChart';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 	state = {
 		charts: [],
 		listView: false,
@@ -24,11 +25,7 @@ export default class Home extends React.Component {
 		});
 	};
 
-	updateCharts = () => {
-		return list().then((charts) => this.setState({ charts })).catch((error) => {
-			throw error;
-		});
-	};
+	updateCharts = () => this.props.list();
 
 	componentDidMount() {
 		return this.updateCharts();
@@ -101,3 +98,9 @@ export default class Home extends React.Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	charts: state.charts
+});
+
+export default connect(mapStateToProps, { list })(Home);

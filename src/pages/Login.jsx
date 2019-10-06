@@ -1,7 +1,8 @@
 import React from 'react';
-import { login, token } from '../api/charts';
+import { connect } from 'react-redux';
+import { login, token } from '../store/charts';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 	state = {
 		email: '',
 		password: ''
@@ -14,20 +15,12 @@ export default class Login extends React.Component {
 	onSubmitHandler = (event) => {
 		event.preventDefault();
 		const { email, password } = this.state;
-		login(email, password)
-			.then((user) => {
-				token(user.token);
-				location.replace('/home');
-			})
-			.catch(console.log);
+		this.props.login(email, password);
 	};
 
-	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
+	handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		console.log(this.props);
 		return (
 			<div id="home">
 				<form className="form-signin" onSubmit={this.onSubmitHandler}>
@@ -83,3 +76,5 @@ export default class Login extends React.Component {
 		);
 	}
 }
+
+export default connect(null, { login })(Login);

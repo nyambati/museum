@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { token } from '../api/charts';
+import { token } from '../store/charts';
 import { Link } from 'react-router-dom';
 export default (props) => {
 	const auth = token();
