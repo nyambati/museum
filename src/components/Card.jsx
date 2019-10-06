@@ -4,7 +4,14 @@ import icon from '../assets/default-icon.jpeg';
 
 export default withRouter(({ footer, chart, history }) => {
 	return (
-		<div className="card border-light mb-3" onClick={() => history.push('/view')}>
+		<div
+			className="card border-light mb-3"
+			onClick={() =>
+				history.push({
+					pathname: `/view/${chart.name}`,
+					search: `?version=${chart.version}`
+				})}
+		>
 			<img src={chart.icon || icon} alt="" srcSet="" className="card-img-top" />
 			{footer && (
 				<div className="card-footer">

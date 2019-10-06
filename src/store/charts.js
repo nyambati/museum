@@ -6,7 +6,11 @@ import {
 	fetchChartsSuccess,
 	fetchChartsError,
 	uploadChartsError,
-	uploadChartsSuccess
+	uploadChartsSuccess,
+	fetchChartByVersionSuccess,
+	fetchChartByVersionError,
+	changeChartView,
+	changeViewIcon
 } from './actions';
 
 axios.defaults.baseURL = process.env.API_BASE_URL;
@@ -48,7 +52,6 @@ export function list() {
 		return axios
 			.get('api/charts')
 			.then(({ data }) => {
-				console.log(data);
 				if (data.message) return dispatch(fetchChartsError(data.message));
 				dispatch(fetchChartsSuccess(data));
 			})
@@ -65,6 +68,13 @@ export const upload = (data) => (dispatch) =>
 		})
 		.catch((error) => uploadChartsError(error.message));
 
-export function findByName() {
-	return {};
-}
+export const changeView = () => (dispatch) => {
+	dispatch(changeChartView());
+	dispatch(changeViewIcon());
+};
+
+export const fetchChartByVersion = (name, version) => (dispatch) =>
+	axios
+		.get(`api/charts/${name}?version=${version}`)
+		.then(({ data }) => dispatch(fetchChartByVersionSuccess(data)))
+		.catch((error) => dispatch(fetchChartByVersionError(error.message)));

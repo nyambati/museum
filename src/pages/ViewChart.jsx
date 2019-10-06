@@ -1,17 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchChartByVersion, list } from '../store/charts';
 
-export default class VewChart extends React.Component {
+class VewChart extends React.Component {
+	state = {
+		versions: []
+	};
+	componentDidMount() {
+		const { location, match } = this.props;
+		const search = new URLSearchParams(location.search);
+		this.props.fetchChartByVersion(match.params.name, search.get('version'));
+	}
+
+	con;
 	render() {
+		const { chart } = this.props;
 		return (
 			<div id="chart_view">
 				<div className="container">
 					<div className="card  mb-3">
 						<div className="card-body">
-							<h4 className="card-title">Secondary card title</h4>
-							<p className="card-text">
-								Some quick example text to build on the card title and make up the bulk of the card's
-								content.
-							</p>
+							<h4 className="card-title">{chart.name}</h4>
+							<p className="card-text">{chart.description}</p>
 						</div>
 					</div>
 					<div className="row">
@@ -32,23 +43,18 @@ export default class VewChart extends React.Component {
 								<a href="#" className="list-group-item list-group-item-action">
 									Versions
 								</a>
-								<a href="#" className="list-group-item list-group-item-action">
-									Dapibus ac facilisis in
-								</a>
-								<a href="#" className="list-group-item list-group-item-action">
-									Morbi leo risus
-								</a>
-								<a href="#" className="list-group-item list-group-item-action">
-									Porta ac consectetur ac
-								</a>
-								<a
-									href="#"
-									className="list-group-item list-group-item-action"
-									tabIndex="-1"
-									aria-disabled="true"
-								>
-									Vestibulum at eros
-								</a>
+								{chart.versions.map((version) => (
+									<Link
+										to={{
+											pathname: `/view/${chart.name}`,
+											search: `?version=${version}`
+										}}
+										className="list-group-item list-group-item-action"
+										key={version}
+									>
+										Version {version}
+									</Link>
+								))}
 							</div>
 						</div>
 					</div>
@@ -57,3 +63,8 @@ export default class VewChart extends React.Component {
 		);
 	}
 }
+const mapStateToProps = (state) => ({
+	chart: state.chart
+});
+
+export default connect(mapStateToProps, { fetchChartByVersion })(VewChart);

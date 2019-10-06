@@ -2,31 +2,16 @@ import React from 'react';
 import ChartsList from '../components/ChartsList';
 
 import { connect } from 'react-redux';
-import { list } from '../store/charts';
+import { list, changeView } from '../store/charts';
 import RecentCharts from '../components/RecentCharts';
 
 class Home extends React.Component {
-	state = {
-		charts: [],
-		listView: false,
-		viewIcon: 'grid_on'
-	};
-
 	constructor(props) {
 		super(props);
 	}
 
-	changeView = () => {
-		this.setState({
-			listView: !this.state.listView,
-			viewIcon: this.state.listView ? 'grid_on' : 'list_view'
-		});
-	};
-
-	updateCharts = () => this.props.list();
-
 	componentDidMount() {
-		return this.updateCharts();
+		this.props.list();
 	}
 
 	renderAlertMessage() {
@@ -47,8 +32,7 @@ class Home extends React.Component {
 	}
 
 	render() {
-		const { charts } = this.state;
-		const listViewcharts = charts.slice(5, charts.length);
+		const { charts, viewIcon, listView, changeView } = this.props;
 		return (
 			<div id="home">
 				<section id="recent-charts">
@@ -58,8 +42,8 @@ class Home extends React.Component {
 				<section className="mb-3 mt-3 container">
 					<ul className="nav nav-pills justify-content-end">
 						<li className="nav-item nav-item-50">
-							<a className="nav-link" onClick={this.changeView}>
-								<i className="material-icons">{this.state.viewIcon}</i>
+							<a className="nav-link" onClick={changeView}>
+								<i className="material-icons">{viewIcon}</i>
 							</a>
 						</li>
 						<li className="nav-item nav-item-50">
@@ -75,7 +59,7 @@ class Home extends React.Component {
 					</ul>
 				</section>
 				<section className="container" id="chart-list">
-					<ChartsList charts={listViewcharts} listView={this.state.listView} />
+					<ChartsList charts={charts.slice(5, charts.length)} listView={listView} />
 				</section>
 			</div>
 		);
@@ -84,7 +68,9 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => ({
 	charts: state.charts,
-	errors: state.errors
+	errors: state.errors,
+	listView: state.listView,
+	viewIcon: state.viewIcon
 });
 
-export default connect(mapStateToProps, { list })(Home);
+export default connect(mapStateToProps, { list, changeView })(Home);

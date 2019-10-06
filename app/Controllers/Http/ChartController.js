@@ -52,7 +52,10 @@ class ChartController {
 		const endpoint = `${museumURL}/api/charts`;
 		try {
 			const { data } = await axios.get(endpoint);
-			return Object.keys(data).map((key) => data[key][0]);
+			return Object.keys(data).map((key) => ({
+				...data[key][0],
+				versions: data[key].map((chart) => chart.version)
+			}));
 		} catch (error) {
 			Logger.error(error.message);
 			return response.status(500).json({ message: error.message });
@@ -61,10 +64,14 @@ class ChartController {
 
 	async show({ params, request }) {
 		const { version } = request.get();
-		const endpoint = `${museumURL}/api/charts/${params.id}/${version || ''}`;
+		const endpoint = `${museumURL}/api/charts/${params.id}`;
 		try {
 			const { data } = await axios.get(endpoint);
-			return data;
+			let chart = data.find((chart) => chart.version === version);
+			return {
+				...chart,
+				versions: data.map((chart) => chart.version)
+			};
 		} catch (error) {
 			Logger.error(error);
 			return { message: error.message };

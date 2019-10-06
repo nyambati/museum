@@ -1,5 +1,6 @@
 import React from 'react';
 import UploadCharts from '../components/UploadCharts';
+import Card from './Card';
 
 const RecentCharts = ({ charts }) => {
 	return (

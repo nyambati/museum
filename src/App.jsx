@@ -22,9 +22,7 @@ const App = (
 				<Route exact path="/home">
 					<HomePage />
 				</Route>
-				<Route exact path="/view">
-					<VewChart />
-				</Route>
+				<Route exact path="/view/:name" component={VewChart} />
 			</Switch>
 		</Router>
 	</Provider>
