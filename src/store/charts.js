@@ -76,5 +76,8 @@ export const changeView = () => (dispatch) => {
 export const fetchChartByVersion = (name, version) => (dispatch) =>
 	axios
 		.get(`api/charts/${name}?version=${version}`)
-		.then(({ data }) => dispatch(fetchChartByVersionSuccess(data)))
+		.then(({ data }) => {
+			console.log(data);
+			dispatch(fetchChartByVersionSuccess(data));
+		})
 		.catch((error) => dispatch(fetchChartByVersionError(error.message)));

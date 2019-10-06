@@ -2,20 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchChartByVersion, list } from '../store/charts';
+import moment from 'moment';
 
 class VewChart extends React.Component {
 	state = {
 		versions: []
 	};
+
 	componentDidMount() {
 		const { location, match } = this.props;
 		const search = new URLSearchParams(location.search);
 		this.props.fetchChartByVersion(match.params.name, search.get('version'));
 	}
 
-	con;
 	render() {
-		const { chart } = this.props;
+		const { chart, error } = this.props;
+		console.log(this.props);
 		return (
 			<div id="chart_view">
 				<div className="container">
@@ -25,36 +27,69 @@ class VewChart extends React.Component {
 							<p className="card-text">{chart.description}</p>
 						</div>
 					</div>
+
+					{error && (
+						<div className="alert alert-dismissible alert-danger container mb-3 mt-3">
+							<button type="button" className="close" data-dismiss="alert">
+								&times;
+							</button>
+							<strong>Oh snap!</strong> {error}
+						</div>
+					)}
+
 					<div className="row">
 						<div className="col-sm-8">
 							<div className="card  mb-3">
-								<div className="card-header">Header</div>
+								<div className="card-header">
+									{chart.name} version {chart.versions}, created {moment(chart.created).fromNow()}
+								</div>
 								<div className="card-body">
-									<h4 className="card-title">Secondary card title</h4>
+									<h4 className="card-title">Application Version</h4>
+									<p className="card-text">v{chart.appVersion}</p>
+									<h4>Home Website</h4>
 									<p className="card-text">
-										Some quick example text to build on the card title and make up the bulk of the
-										card's content.
+										<a href={chart.home}>{chart.home}</a>
 									</p>
+									<h4>Sources</h4>
+									<ul>
+										{chart.sources.map((source) => (
+											<li key={source}>
+												<a href={source} target="_blank">
+													{source}
+												</a>
+											</li>
+										))}
+									</ul>
 								</div>
 							</div>
 						</div>
 						<div className="col-sm-4">
-							<div className="list-group">
-								<a href="#" className="list-group-item list-group-item-action">
-									Versions
-								</a>
-								{chart.versions.map((version) => (
-									<Link
-										to={{
-											pathname: `/view/${chart.name}`,
-											search: `?version=${version}`
-										}}
-										className="list-group-item list-group-item-action"
-										key={version}
-									>
-										Version {version}
-									</Link>
-								))}
+							<div className="card  mb-3">
+								<div className="card-body">
+									<h4 className="card-title"> Chart Versions</h4>
+									<ul>
+										{chart.versions.map((version) => (
+											<li key={version}>
+												<Link
+													to={{
+														pathname: `/view/${chart.name}`,
+														search: `?version=${version}`
+													}}
+												>
+													v{version}
+												</Link>
+											</li>
+										))}
+									</ul>
+									<h4>Home Website</h4>
+									<p className="card-text">
+										<a href={chart.home} target="_blank">
+											{chart.home}
+										</a>
+									</p>
+									<h4>Key Words</h4>
+									<ul>{chart.keywords.map((word) => <li key={word}>{word}</li>)}</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -63,8 +98,19 @@ class VewChart extends React.Component {
 		);
 	}
 }
+
+VewChart.defaultProps = {
+	chart: {
+		keywords: [],
+		sources: [],
+		maintainers: [],
+		versions: []
+	}
+};
+
 const mapStateToProps = (state) => ({
-	chart: state.chart
+	chart: state.chart,
+	error: state.errors.chart
 });
 
 export default connect(mapStateToProps, { fetchChartByVersion })(VewChart);

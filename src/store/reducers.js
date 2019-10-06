@@ -13,6 +13,9 @@ export const initialState = {
 	charts: [],
 	errors: {},
 	chart: {
+		keywords: [],
+		sources: [],
+		maintainers: [],
 		versions: []
 	},
 	listView: false,
@@ -70,7 +73,7 @@ export function viewIcon(state = initialState.viewIcon, action) {
 export function chart(state = initialState.chart, action) {
 	switch (action.type) {
 		case FETCH_CHARTS_BY_VERSION_SUCCESS:
-			return action.payload;
+			return { ...state, ...action.payload };
 		default:
 			return state;
 	}
