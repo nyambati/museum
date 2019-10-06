@@ -5,12 +5,17 @@ import { LOGIN_SUCCESS, FETCH_CHARTS_SUCCESS } from './types';
 
 const initialState = {
 	user: {},
-	charts: []
+	charts: [],
+	errors: {}
 };
 
 const logger = createLogger();
 
-function user(state = initialState.user, action) {
+function errors(state, action) {
+	return state;
+}
+
+function user(state, action) {
 	switch (action.type) {
 		case LOGIN_SUCCESS:
 			return {
@@ -22,7 +27,7 @@ function user(state = initialState.user, action) {
 	}
 }
 
-function charts(state = initialState.charts, action) {
+function charts(state, action) {
 	switch (action.type) {
 		case FETCH_CHARTS_SUCCESS:
 			return {

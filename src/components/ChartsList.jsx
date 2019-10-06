@@ -1,9 +1,9 @@
 import React from 'react';
 import Pagination from 'react-js-pagination';
 import moment from 'moment';
-import Card from '../components/Card';
+import Card from './Card';
 
-class CardList extends React.Component {
+class ChartsList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -81,4 +81,4 @@ class CardList extends React.Component {
 	}
 }
 
-export default CardList;
+export default ChartsList;

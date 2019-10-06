@@ -1,16 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 
-class AddChart extends React.Component {
-	state = {
-		charts: []
-	};
+class UploadCharts extends React.Component {
 	constructor(props) {
 		super(props);
 		this.input = React.createRef();
 	}
 
-	trigger = (event) => {
+	trigger = () => {
 		this.input.current.click();
 	};
 
@@ -47,4 +43,4 @@ class AddChart extends React.Component {
 	}
 }
 
-export default AddChart;
+export default UploadCharts;

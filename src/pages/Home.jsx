@@ -1,17 +1,15 @@
 import React from 'react';
-import Card from '../components/Card';
-import CardList from '../containers/CardList';
+import ChartsList from '../components/ChartsList';
 
 import { connect } from 'react-redux';
 import { list } from '../store/charts';
-import AddChart from '../components/AddChart';
+import RecentCharts from '../components/RecentCharts';
 
 class Home extends React.Component {
 	state = {
 		charts: [],
 		listView: false,
-		viewIcon: 'grid_on',
-		recentSize: 5
+		viewIcon: 'grid_on'
 	};
 
 	constructor(props) {
@@ -49,27 +47,12 @@ class Home extends React.Component {
 	}
 
 	render() {
-		const { charts, recentSize } = this.state;
+		const { charts } = this.state;
 		const listViewcharts = charts.slice(5, charts.length);
 		return (
 			<div id="home">
 				<section id="recent-charts">
-					<div className="container">
-						<p id="rc-text">Recent Charts</p>
-						<div className="row">
-							<AddChart func={this.updateCharts} />
-							{charts.slice(0, recentSize).map((chart) => (
-								<div className="col-sm-2" key={chart.name}>
-									<Card chart={chart} />
-									<div className="chart-footer mb-4">
-										<p>
-											{chart.name} {chart.version}
-										</p>
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
+					<RecentCharts charts={charts} />
 				</section>
 
 				<section className="mb-3 mt-3 container">
@@ -92,7 +75,7 @@ class Home extends React.Component {
 					</ul>
 				</section>
 				<section className="container" id="chart-list">
-					<CardList charts={listViewcharts} listView={this.state.listView} />
+					<ChartsList charts={listViewcharts} listView={this.state.listView} />
 				</section>
 			</div>
 		);
@@ -100,7 +83,8 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	charts: state.charts
+	charts: state.charts,
+	errors: state.errors
 });
 
 export default connect(mapStateToProps, { list })(Home);
