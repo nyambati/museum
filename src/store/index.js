@@ -11,11 +11,11 @@ const initialState = {
 
 const logger = createLogger();
 
-function errors(state, action) {
+function errors(state = initialState.errors, action) {
 	return state;
 }
 
-function user(state, action) {
+function user(state = initialState.user, action) {
 	switch (action.type) {
 		case LOGIN_SUCCESS:
 			return {
@@ -27,7 +27,7 @@ function user(state, action) {
 	}
 }
 
-function charts(state, action) {
+function charts(state = initialState.charts, action) {
 	switch (action.type) {
 		case FETCH_CHARTS_SUCCESS:
 			return {
@@ -39,7 +39,7 @@ function charts(state, action) {
 	}
 }
 
-const reducers = combineReducers({ user, charts });
+const reducers = combineReducers({ user, charts, errors });
 
 const store = createStore(reducers, initialState, compose(applyMiddleware(thunk), applyMiddleware(logger)));
 

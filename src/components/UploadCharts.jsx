@@ -18,6 +18,7 @@ class UploadCharts extends React.Component {
 		}
 		this.props.upload(data);
 	};
+
 	render() {
 		return (
 			<div className="col-sm-2" onClick={this.trigger}>

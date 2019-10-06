@@ -1,7 +1,7 @@
 import React from 'react';
 import UploadCharts from '../components/UploadCharts';
 
-export default (RecentCharts = ({ charts }) => {
+const RecentCharts = ({ charts }) => {
 	return (
 		<div className="container">
 			<p id="rc-text">Recent Charts</p>
@@ -20,4 +20,6 @@ export default (RecentCharts = ({ charts }) => {
 			</div>
 		</div>
 	);
-});
+};
+
+export default RecentCharts;

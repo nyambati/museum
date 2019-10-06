@@ -18,13 +18,11 @@ class AuthController {
 			if (await auth.attempt(email, password)) {
 				let user = await User.findBy('email', email);
 				let token = await auth.generate(user);
-
 				Object.assign(user, token);
 				return response.json(user);
 			}
 		} catch (e) {
-			console.log(e.message);
-			return response.json({ message: e.message.split(':')[1] });
+			return response.status(500).json({ message: e.message.split(':')[1] });
 		}
 	}
 

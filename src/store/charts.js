@@ -47,7 +47,11 @@ export function list() {
 	return (dispatch) => {
 		return axios
 			.get('api/charts')
-			.then(({ data }) => dispatch(fetchChartsSuccess(data)))
+			.then(({ data }) => {
+				console.log(data);
+				if (data.message) return dispatch(fetchChartsError(data.message));
+				dispatch(fetchChartsSuccess(data));
+			})
 			.catch((error) => dispatch(fetchChartsError(error.message)));
 	};
 }
