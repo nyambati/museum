@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import UploadCharts from '../components/UploadCharts';
 import Card from './Card';
 
@@ -23,4 +24,8 @@ const RecentCharts = ({ charts }) => {
 	);
 };
 
-export default RecentCharts;
+RecentCharts.defaultProps = {
+	charts: []
+};
+
+export default connect((state) => ({ charts: state.charts }))(RecentCharts);

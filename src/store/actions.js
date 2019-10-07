@@ -8,7 +8,9 @@ import {
 	CHANGE_CHART_VIEW,
 	CHANGE_VIEW_ICON,
 	FETCH_CHARTS_BY_VERSION_SUCCESS,
-	FETCH_CHARTS_BY_VERSION_ERROR
+	FETCH_CHARTS_BY_VERSION_ERROR,
+	SET_AUTH_TOKEN,
+	REMOVE_AUTH_TOKEN
 } from './types';
 
 export const userLoginSuccess = (user) => {
@@ -51,6 +53,13 @@ export const fetchChartByVersionError = (error) => ({
 	type: FETCH_CHARTS_BY_VERSION_ERROR,
 	payload: error
 });
+
+export const setAuthToken = (token) => ({
+	type: SET_AUTH_TOKEN,
+	payload: token
+});
+
+export const removeAuthToken = () => ({ type: REMOVE_AUTH_TOKEN });
 
 export const changeChartView = () => ({ type: CHANGE_CHART_VIEW });
 

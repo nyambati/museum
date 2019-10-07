@@ -17,7 +17,6 @@ class VewChart extends React.Component {
 
 	render() {
 		const { chart, error } = this.props;
-		console.log(this.props);
 		return (
 			<div id="chart_view">
 				<div className="container">
@@ -45,7 +44,7 @@ class VewChart extends React.Component {
 								</div>
 								<div className="card-body">
 									<h4 className="card-title">Application Version</h4>
-									<p className="card-text">v{chart.appVersion}</p>
+									<p className="card-text">{chart.appVersion}</p>
 									<h4>Home Website</h4>
 									<p className="card-text">
 										<a href={chart.home}>{chart.home}</a>
@@ -76,7 +75,7 @@ class VewChart extends React.Component {
 														search: `?version=${version}`
 													}}
 												>
-													v{version}
+													{version}
 												</Link>
 											</li>
 										))}

@@ -36,7 +36,7 @@ class Home extends React.Component {
 		return (
 			<div id="home">
 				<section id="recent-charts">
-					<RecentCharts charts={charts} />
+					<RecentCharts />
 				</section>
 
 				<section className="mb-3 mt-3 container">

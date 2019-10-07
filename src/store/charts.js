@@ -10,7 +10,8 @@ import {
 	fetchChartByVersionSuccess,
 	fetchChartByVersionError,
 	changeChartView,
-	changeViewIcon
+	changeViewIcon,
+	setAuthToken
 } from './actions';
 import history from './history';
 
@@ -26,11 +27,9 @@ export function token(token) {
 
 export async function logout() {
 	try {
-		const { data } = await axios.get('api/auth/logout');
+		await axios.get('api/auth/logout');
 		localStorage.removeItem('_access_token');
-		return data;
 	} catch (error) {
-		console.log(error.message);
 		throw error;
 	}
 }
@@ -42,6 +41,8 @@ export function login(email, password) {
 			.post('api/auth/login', { email, password })
 			.then(({ data }) => {
 				token(data.token);
+				axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+				dispatch(setAuthToken(data.token));
 				dispatch(userLoginSuccess(data));
 				history.push('/home');
 			})
@@ -49,22 +50,22 @@ export function login(email, password) {
 	};
 }
 
-export function list() {
-	return (dispatch) => {
-		return axios
-			.get('api/charts')
-			.then(({ data }) => {
-				if (data.message) return dispatch(fetchChartsError(data.message));
-				dispatch(fetchChartsSuccess(data));
-			})
-			.catch((error) => dispatch(fetchChartsError(error.message)));
-	};
-}
+export const list = () => (dispatch) =>
+	axios
+		.get('api/charts')
+		.then(({ data }) => {
+			if (data.message) return dispatch(fetchChartsError(data.message));
+			dispatch(fetchChartsSuccess(data));
+		})
+		.catch((error) => dispatch(fetchChartsError(error.message)));
 
 export const upload = (data) => (dispatch) =>
 	axios
 		.post('/api/charts', data)
-		.then(({ data }) => dispatch(uploadChartsSuccess(data)))
+		.then(({ data }) => {
+			dispatch(uploadChartsSuccess(data));
+			list()(dispatch);
+		})
 		.catch((error) => uploadChartsError(error.message));
 
 export const changeView = () => (dispatch) => {

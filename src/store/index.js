@@ -2,12 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import { initialState, errors, charts, user, listView, viewIcon, chart, upload } from './reducers';
+import * as reducers from './reducers';
 
-const logger = createLogger();
+const middlewares = [ thunk ];
 
-const rootReducer = combineReducers({ errors, charts, user, viewIcon, listView, chart, upload });
+if (process.env.NODE_ENV === 'development') {
+	middlewares.push(createLogger());
+}
 
-const store = createStore(rootReducer, initialState, compose(applyMiddleware(thunk), applyMiddleware(logger)));
-
-export default store;
+export default createStore(combineReducers(reducers), reducers.initialState, compose(applyMiddleware(...middlewares)));

@@ -6,10 +6,13 @@ import {
 	CHANGE_CHART_VIEW,
 	FETCH_CHARTS_BY_VERSION_SUCCESS,
 	FETCH_CHARTS_BY_VERSION_ERROR,
-	UPLOAD_CHARTS_SUCCESS
+	UPLOAD_CHARTS_SUCCESS,
+	SET_AUTH_TOKEN,
+	REMOVE_AUTH_TOKEN
 } from './types';
-
+import { token as getToken } from './charts';
 export const initialState = {
+	token: getToken() || '',
 	user: {},
 	charts: [],
 	errors: {},
@@ -21,8 +24,19 @@ export const initialState = {
 		versions: []
 	},
 	listView: false,
-	viewIcon: 'grid_on'
+	viewIcon: 'list_view'
 };
+
+export function token(state = initialState.token, action) {
+	switch (action.type) {
+		case SET_AUTH_TOKEN:
+			return action.payload;
+		case REMOVE_AUTH_TOKEN:
+			return '';
+		default:
+			return state;
+	}
+}
 
 export function errors(state = initialState.errors, action) {
 	switch (action.type) {
@@ -65,8 +79,8 @@ export function listView(state = initialState.listView, action) {
 export function viewIcon(state = initialState.viewIcon, action) {
 	switch (action.type) {
 		case CHANGE_VIEW_ICON:
-			console.log('Change', state);
-			return state == 'list_vew' ? 'grid_on' : 'list_view';
+			if (state == 'grid_on') return 'list_view';
+			if (state == 'list_view') return 'grid_on';
 		default:
 			return state;
 	}

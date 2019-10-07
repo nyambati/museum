@@ -6,11 +6,7 @@ export default withRouter(({ footer, chart, history }) => {
 	return (
 		<div
 			className="card border-light mb-3"
-			onClick={() =>
-				history.push({
-					pathname: `/view/${chart.name}`,
-					search: `?version=${chart.version}`
-				})}
+			onClick={() => history.push(`/view/${chart.name}?version=${chart.version}`)}
 		>
 			<img src={chart.icon || icon} alt="" srcSet="" className="card-img-top" />
 			{footer && (
