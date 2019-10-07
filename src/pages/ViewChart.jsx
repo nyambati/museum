@@ -69,14 +69,7 @@ class VewChart extends React.Component {
 									<ul>
 										{chart.versions.map((version) => (
 											<li key={version}>
-												<Link
-													to={{
-														pathname: `/view/${chart.name}`,
-														search: `?version=${version}`
-													}}
-												>
-													{version}
-												</Link>
+												<Link to={`/view/${chart.name}?version=${version}`}>{version}</Link>
 											</li>
 										))}
 									</ul>
