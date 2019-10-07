@@ -1,84 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import Card from './Card';
 
-class ChartsList extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			activePage: 1,
-			itemsCountPerPage: 8
-		};
-
-		this.handlePageChange = this.handlePageChange.bind(this);
-	}
-
-	handlePageChange(activePage) {
-		this.setState({ activePage });
-	}
-
-	render() {
-		const { charts, listView } = this.props;
-		const start = (this.state.activePage - 1) * this.state.itemsCountPerPage;
-		const end = start + this.state.itemsCountPerPage;
-		const cardsView = (
-			<div className="row">
-				{charts.slice(start, end).map((chart) => (
-					<div className="col-sm-3" key={chart.name}>
-						<Card footer={true} chart={chart} />
-					</div>
-				))}
-			</div>
-		);
-
-		const listsView = (
+const ChartList = (props) => {
+	const [ activePage, setActivePage ] = useState(1);
+	const [ itemsCountPerPage ] = useState(8);
+	const start = (activePage - 1) * itemsCountPerPage;
+	const end = start + itemsCountPerPage;
+	const _charts = props.charts.slice(5, props.charts.length);
+	return (
+		<div>
 			<div className="mb-3">
 				<table className="table table-hover">
-					{/* <thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">First</th>
-							<th scope="col">Last</th>
-							<th scope="col">Handle</th>
-						</tr>
-					</thead> */}
 					<tbody>
-						{charts.slice(start, end).map((chart) => (
-							<tr key={chart.version} className="list_view_item">
-								<th scope="row">
-									<i className="material-icons">insert_drive_file</i>
-								</th>
-								<td>{chart.name}</td>
-								<td>version {chart.version}</td>
-								<td>{moment(chart.created).fromNow()}</td>
-								<td className="list_view_action">
-									<i className="material-icons">more_vert</i>
-								</td>
-							</tr>
-						))}
+						{_charts.slice(start, end).map((chart) => {
+							if (props.listView) {
+								return (
+									<tr key={chart.version} className="list_view_item">
+										<th scope="row">
+											<i className="material-icons">insert_drive_file</i>
+										</th>
+										<td>{chart.name}</td>
+										<td>version {chart.version}</td>
+										<td>{moment(chart.created).fromNow()}</td>
+										<td className="list_view_action">
+											<i className="material-icons">more_vert</i>
+										</td>
+									</tr>
+								);
+							}
+							return (
+								<div className="col-sm-3" key={chart.name}>
+									<Card footer={true} chart={chart} />
+								</div>
+							);
+						})}
 					</tbody>
 				</table>
 			</div>
-		);
+			{props.charts.length > 13 && (
+				<Pagination
+					activePage={activePage}
+					itemsCountPerPage={itemsCountPerPage}
+					totalItemsCount={props.charts.length}
+					pageRangeDisplayed={5}
+					onChange={(page) => setActivePage(page)}
+					itemClass={'page-item bg-light'}
+					linkClass={'page-link'}
+				/>
+			)}
+		</div>
+	);
+};
 
-		return (
-			<div>
-				{listView ? listsView : cardsView}
-				{charts.length > 0 && (
-					<Pagination
-						activePage={this.state.activePage}
-						itemsCountPerPage={this.state.itemsCountPerPage}
-						totalItemsCount={charts.length}
-						pageRangeDisplayed={5}
-						onChange={this.handlePageChange}
-						itemClass={'page-item bg-light'}
-						linkClass={'page-link'}
-					/>
-				)}
-			</div>
-		);
-	}
-}
+ChartList.defaultProps = {
+	charts: [],
+	listView: false
+};
 
-export default ChartsList;
+const mapStateToProps = (state) => ({ charts: state.charts });
+
+export default connect(mapStateToProps, {})(ChartList);

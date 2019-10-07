@@ -12,6 +12,7 @@ import {
 	changeChartView,
 	changeViewIcon
 } from './actions';
+import history from './history';
 
 axios.defaults.baseURL = process.env.API_BASE_URL;
 axios.defaults.headers.common['Authorization'] = `Bearer ${token()}`;
@@ -42,6 +43,7 @@ export function login(email, password) {
 			.then(({ data }) => {
 				token(data.token);
 				dispatch(userLoginSuccess(data));
+				history.push('/home');
 			})
 			.catch((error) => dispatch(userLoginError(error.message)));
 	};
@@ -62,10 +64,7 @@ export function list() {
 export const upload = (data) => (dispatch) =>
 	axios
 		.post('/api/charts', data)
-		.then(({ data }) => {
-			list();
-			dispatch(uploadChartsSuccess(data));
-		})
+		.then(({ data }) => dispatch(uploadChartsSuccess(data)))
 		.catch((error) => uploadChartsError(error.message));
 
 export const changeView = () => (dispatch) => {
@@ -76,8 +75,5 @@ export const changeView = () => (dispatch) => {
 export const fetchChartByVersion = (name, version) => (dispatch) =>
 	axios
 		.get(`api/charts/${name}?version=${version}`)
-		.then(({ data }) => {
-			console.log(data);
-			dispatch(fetchChartByVersionSuccess(data));
-		})
+		.then(({ data }) => dispatch(fetchChartByVersionSuccess(data)))
 		.catch((error) => dispatch(fetchChartByVersionError(error.message)));

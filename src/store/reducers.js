@@ -5,13 +5,15 @@ import {
 	CHANGE_VIEW_ICON,
 	CHANGE_CHART_VIEW,
 	FETCH_CHARTS_BY_VERSION_SUCCESS,
-	FETCH_CHARTS_BY_VERSION_ERROR
+	FETCH_CHARTS_BY_VERSION_ERROR,
+	UPLOAD_CHARTS_SUCCESS
 } from './types';
 
 export const initialState = {
 	user: {},
 	charts: [],
 	errors: {},
+	upload: {},
 	chart: {
 		keywords: [],
 		sources: [],
@@ -36,7 +38,7 @@ export function errors(state = initialState.errors, action) {
 export function user(state = initialState.charts, action) {
 	switch (action.type) {
 		case LOGIN_SUCCESS:
-			return action.payload;
+			return { ...state, ...action.payload };
 		default:
 			return state;
 	}
@@ -74,6 +76,15 @@ export function chart(state = initialState.chart, action) {
 	switch (action.type) {
 		case FETCH_CHARTS_BY_VERSION_SUCCESS:
 			return { ...state, ...action.payload };
+		default:
+			return state;
+	}
+}
+
+export function upload(state = initialState.upload, action) {
+	switch (action.type) {
+		case UPLOAD_CHARTS_SUCCESS:
+			return { sucess: true, ...action.payload };
 		default:
 			return state;
 	}

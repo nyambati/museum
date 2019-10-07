@@ -33,9 +33,9 @@ export const fetchChartsError = (error) => ({
 	payload: error
 });
 
-export const uploadChartsSuccess = (error) => ({
+export const uploadChartsSuccess = (data) => ({
 	type: UPLOAD_CHARTS_SUCCESS,
-	payload: error
+	payload: data
 });
 
 export const uploadChartsError = (error) => ({

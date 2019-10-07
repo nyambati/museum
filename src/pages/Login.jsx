@@ -21,7 +21,6 @@ class Login extends React.Component {
 	handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
 	render() {
-		console.log(this.props);
 		return (
 			<div id="home">
 				<form className="form-signin" onSubmit={this.onSubmitHandler}>
@@ -78,10 +77,6 @@ class Login extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		user: state.user
-	};
-};
+const mapStateToProps = (state) => ({ user: state.user });
 
 export default connect(mapStateToProps, { login })(Login);

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { upload } from '../store/charts';
 
 class UploadCharts extends React.Component {
 	constructor(props) {
@@ -44,4 +46,4 @@ class UploadCharts extends React.Component {
 	}
 }
 
-export default UploadCharts;
+export default connect(null, { upload })(UploadCharts);

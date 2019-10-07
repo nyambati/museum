@@ -59,7 +59,7 @@ class Home extends React.Component {
 					</ul>
 				</section>
 				<section className="container" id="chart-list">
-					<ChartsList charts={charts.slice(5, charts.length)} listView={listView} />
+					<ChartsList listView={listView} />
 				</section>
 			</div>
 		);
@@ -69,6 +69,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => ({
 	charts: state.charts,
 	errors: state.errors,
+	upload: state.upload,
 	listView: state.listView,
 	viewIcon: state.viewIcon
 });
