@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +12,11 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory');
-const Env = use('Env');
-Factory.blueprint('App/Models/User', (faker) => {
-	return {
-		email: Env.get('ADMIN_EMAIL', 'admin@maktaba.org'),
-		password: Env.get('ADMIN_PASSWORD', 'maktaba')
-	};
+const Factory = use("Factory");
+const Env = use("Env");
+Factory.blueprint("App/Models/User", faker => {
+  return {
+    email: Env.get("ADMIN_EMAIL", "admin@maktaba.org"),
+    password: Env.get("ADMIN_PASSWORD", "maktaba")
+  };
 });

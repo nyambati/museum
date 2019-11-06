@@ -7,7 +7,9 @@ import RecentCharts from "../components/RecentCharts";
 
 const HomePage = props => {
   const { list, changeView, viewIcon, listView } = props;
-  useEffect(() => list());
+  useEffect(() => {
+    list();
+  });
   return (
     <div id="home">
       <section id="recent-charts">
