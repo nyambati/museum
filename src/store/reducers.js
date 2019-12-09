@@ -1,17 +1,19 @@
-import {
-	LOGIN_SUCCESS,
-	FETCH_CHARTS_SUCCESS,
-	FETCH_CHARTS_ERROR,
-	CHANGE_VIEW_ICON,
-	CHANGE_CHART_VIEW,
-	FETCH_CHARTS_BY_VERSION_SUCCESS,
-	FETCH_CHARTS_BY_VERSION_ERROR,
-	UPLOAD_CHARTS_SUCCESS,
-	SET_AUTH_TOKEN,
-	REMOVE_AUTH_TOKEN
-} from './types';
+import { createReducer } from '@reduxjs/redux-toolkit';
 import { token as getToken } from './charts';
-export const initialState = {
+import {
+	removeAuthToken,
+	setAuthToken,
+	fetchChartsError,
+	fetchChartByVersionError,
+	userLoginSuccess,
+	fetchChartsSuccess,
+	changeChartView,
+	changeViewIcon,
+	fetchChartByVersionSuccess,
+	uploadChartsSuccess
+} from './actions';
+
+export const state = {
 	token: getToken() || '',
 	user: {},
 	charts: [],
@@ -27,79 +29,39 @@ export const initialState = {
 	viewIcon: 'list_view'
 };
 
-export function token(state = initialState.token, action) {
-	switch (action.type) {
-		case SET_AUTH_TOKEN:
-			return action.payload;
-		case REMOVE_AUTH_TOKEN:
-			return '';
-		default:
-			return state;
-	}
-}
+export const token = createReducer(state.token, {
+	[setAuthToken]: (_, action) => action.payload,
+	[removeAuthToken]: () => ''
+});
 
-export function errors(state = initialState.errors, action) {
-	switch (action.type) {
-		case FETCH_CHARTS_ERROR:
-			return { ...state, charts: action.payload };
-		case FETCH_CHARTS_BY_VERSION_ERROR:
-			return { ...state, chart: action.payload };
-		default:
-			return state;
-	}
-}
+export const errors = createReducer(state.errors, {
+	[fetchChartsError]: (state, action) => ({ ...state, charts: action.payload }),
+	[fetchChartByVersionError]: (state, action) => ({ ...state, chart: action.payload })
+});
 
-export function user(state = initialState.charts, action) {
-	switch (action.type) {
-		case LOGIN_SUCCESS:
-			return { ...state, ...action.payload };
-		default:
-			return state;
-	}
-}
+export const user = createReducer(state.user, {
+	[userLoginSuccess]: (state, action) => ({ ...state, ...action.payload })
+});
 
-export function charts(state = initialState.charts, action) {
-	switch (action.type) {
-		case FETCH_CHARTS_SUCCESS:
-			return [ ...action.payload ];
-		default:
-			return state;
-	}
-}
+export const charts = createReducer(state.charts, {
+	[fetchChartsSuccess]: (_, action) => [ ...action.payload ]
+});
 
-export function listView(state = initialState.listView, action) {
-	switch (action.type) {
-		case CHANGE_CHART_VIEW:
-			return !state;
-		default:
-			return state;
-	}
-}
+export const listView = createReducer(state.listView, {
+	[changeChartView]: (state) => !state
+});
 
-export function viewIcon(state = initialState.viewIcon, action) {
-	switch (action.type) {
-		case CHANGE_VIEW_ICON:
-			if (state == 'grid_on') return 'list_view';
-			if (state == 'list_view') return 'grid_on';
-		default:
-			return state;
+export const viewIcon = createReducer(state.viewIcon, {
+	[changeViewIcon]: (state) => {
+		if (state == 'grid_on') return 'list_view';
+		if (state == 'list_view') return 'grid_on';
 	}
-}
+});
 
-export function chart(state = initialState.chart, action) {
-	switch (action.type) {
-		case FETCH_CHARTS_BY_VERSION_SUCCESS:
-			return { ...state, ...action.payload };
-		default:
-			return state;
-	}
-}
+export const chart = createReducer(state.chart, {
+	[fetchChartByVersionSuccess]: (state, action) => ({ ...state, ...action.payload })
+});
 
-export function upload(state = initialState.upload, action) {
-	switch (action.type) {
-		case UPLOAD_CHARTS_SUCCESS:
-			return { sucess: true, ...action.payload };
-		default:
-			return state;
-	}
-}
+export const upload = createReducer(state.upload, {
+	[uploadChartsSuccess]: (_, action) => ({ sucess: true, ...action.payload })
+});

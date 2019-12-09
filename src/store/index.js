@@ -1,6 +1,8 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/redux-toolkit';
+import { combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import { createBrowserHistory } from 'history';
 
 import * as reducers from './reducers';
 
@@ -10,4 +12,10 @@ if (process.env.NODE_ENV === 'development') {
 	middlewares.push(createLogger());
 }
 
-export default createStore(combineReducers(reducers), reducers.initialState, compose(applyMiddleware(...middlewares)));
+export const history = createBrowserHistory();
+
+export default configureStore({
+	reducer: combineReducers(reducers),
+	preloadedState: reducers.state,
+	middleware: middlewares
+});

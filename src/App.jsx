@@ -8,7 +8,7 @@ import LoginPage from './pages/Login';
 import VewChart from './pages/ViewChart';
 import { token } from './store/charts';
 import store from './store';
-import history from './store/history';
+import { history } from './store';
 
 const App = (
 	<Provider store={store}>

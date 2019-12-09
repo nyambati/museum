@@ -1,66 +1,23 @@
-import {
-	LOGIN_SUCCESS,
-	LOGIN_ERROR,
-	FETCH_CHARTS_SUCCESS,
-	FETCH_CHARTS_ERROR,
-	UPLOAD_CHARTS_SUCCESS,
-	UPLOAD_CHARTS_ERROR,
-	CHANGE_CHART_VIEW,
-	CHANGE_VIEW_ICON,
-	FETCH_CHARTS_BY_VERSION_SUCCESS,
-	FETCH_CHARTS_BY_VERSION_ERROR,
-	SET_AUTH_TOKEN,
-	REMOVE_AUTH_TOKEN
-} from './types';
+import { createAction } from '@reduxjs/redux-toolkit';
+export const userLoginSuccess = createAction('LOGIN_SUCCESS');
 
-export const userLoginSuccess = (user) => {
-	return {
-		type: LOGIN_SUCCESS,
-		payload: user
-	};
-};
+export const userLoginError = createAction('LOGIN_ERROR');
 
-export const userLoginError = (error) => ({
-	type: LOGIN_ERROR,
-	payload: error
-});
+export const fetchChartsSuccess = createAction('FETCH_CHARTS_SUCCESS');
 
-export const fetchChartsSuccess = (charts) => ({
-	type: FETCH_CHARTS_SUCCESS,
-	payload: charts
-});
+export const fetchChartsError = createAction('FETCH_CHARTS_ERROR');
 
-export const fetchChartsError = (error) => ({
-	type: FETCH_CHARTS_ERROR,
-	payload: error
-});
+export const uploadChartsSuccess = createAction('UPLOAD_CHARTS_SUCCESS');
 
-export const uploadChartsSuccess = (data) => ({
-	type: UPLOAD_CHARTS_SUCCESS,
-	payload: data
-});
+export const uploadChartsError = createAction('UPLOAD_CHARTS_ERROR');
 
-export const uploadChartsError = (error) => ({
-	type: UPLOAD_CHARTS_ERROR,
-	payload: error
-});
+export const fetchChartByVersionSuccess = createAction('FETCH_CHARTS_BY_VERSION_SUCCESS');
+export const fetchChartByVersionError = createAction('FETCH_CHARTS_BY_VERSION_ERROR');
 
-export const fetchChartByVersionSuccess = (chart) => ({
-	type: FETCH_CHARTS_BY_VERSION_SUCCESS,
-	payload: chart
-});
-export const fetchChartByVersionError = (error) => ({
-	type: FETCH_CHARTS_BY_VERSION_ERROR,
-	payload: error
-});
+export const setAuthToken = createAction('SET_AUTH_TOKEN');
 
-export const setAuthToken = (token) => ({
-	type: SET_AUTH_TOKEN,
-	payload: token
-});
+export const removeAuthToken = createAction('REMOVE_AUTH_TOKEN');
 
-export const removeAuthToken = () => ({ type: REMOVE_AUTH_TOKEN });
+export const changeChartView = createAction('CHANGE_CHART_VIEW');
 
-export const changeChartView = () => ({ type: CHANGE_CHART_VIEW });
-
-export const changeViewIcon = () => ({ type: CHANGE_VIEW_ICON });
+export const changeViewIcon = createAction('CHANGE_VIEW_ICON');

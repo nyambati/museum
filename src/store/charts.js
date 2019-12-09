@@ -13,7 +13,8 @@ import {
 	changeViewIcon,
 	setAuthToken
 } from './actions';
-import history from './history';
+
+import { history } from './';
 
 axios.defaults.baseURL = process.env.API_BASE_URL;
 axios.defaults.headers.common['Authorization'] = `Bearer ${token()}`;

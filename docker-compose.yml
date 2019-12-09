@@ -17,3 +17,11 @@ services:
     volumes:
       # - "./config:/config:ro"
       - "./data/charts:/charts:rw"
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_DB=museum
+      - POSTGRES_USER=museum
+      - POSTGRES_PASSWORD=museum
+    ports:
+      - "5432:5432"

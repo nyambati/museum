@@ -12,9 +12,7 @@ class AuthController {
 
 	async login({ request, auth, response }) {
 		let { email, password } = request.all();
-
 		try {
-			Logger.info('Starting logging');
 			if (await auth.attempt(email, password)) {
 				let user = await User.findBy('email', email);
 				let token = await auth.generate(user);
